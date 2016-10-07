@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
   } else {
     printf("Must supply two arguments: brainfuck_file.bf output_file.asm\n");
   }
-
+  printf("\n  Contents of %s \n", argv[1]);
   input = fopen(argv[1], "r");
   output = fopen(argv[2], "w");
 
@@ -108,5 +108,16 @@ int main(int argc, char *argv[]) {
   }
 
   fprintf(output, "\tli\t$v0, 10\n\tsyscall");
+
+  fclose(input);
+  fclose(output);
+
+  input = fopen(argv[2], "r");
+
+  printf("\n  Wrote to %s \n", argv[2]);
+  while ((command = getc(input)) != EOF) {
+    printf("%c", command);
+  }
+  printf("\n");
   return 0;
 }
